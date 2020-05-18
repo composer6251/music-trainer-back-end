@@ -11,16 +11,18 @@ public class TestWebServiceController {
 
     @GetMapping("/messagingservice")
     public String testMessage(){
+
         return "Test Message from Java Back End";
     }
 
-    @GetMapping("/messagingServiceBean")
+    @GetMapping("/messagingservicebean")
     public TestWebServiceBean testWebServiceBean(){
-        return new TestWebServiceBean(String.format("Test message from Java Back End %s"));
+       // System.out.println("In TestWebServiceBean. new Bean: " + new TestWebServiceBean("Test message from Java Back End Bean"));
+        return new TestWebServiceBean("Test message from Java Back End Bean");
     }
 
-    @GetMapping("/messagingServiceBean/path-variable/{name}")
-    public TestWebServiceBean testWebServiceBean(@PathVariable String name){
-        return new TestWebServiceBean(String.format("Test message from Java Back End %s", name));
-    }
+//    @GetMapping("/messagingServiceBean/path-variable/{name}")
+//    public TestWebServiceBean testWebServiceBean(@PathVariable String name){
+//        return new TestWebServiceBean(String.format("Test message from Java Back End %s", name));
+//    }
 }
