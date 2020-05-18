@@ -13,9 +13,14 @@ public class TestWebServiceController {
     public String testMessage(){
         return "Test Message from Java Back End";
     }
+
+    @GetMapping("/messagingServiceBean")
+    public TestWebServiceBean testWebServiceBean(){
+        return new TestWebServiceBean(String.format("Test message from Java Back End %s"));
+    }
+
     @GetMapping("/messagingServiceBean/path-variable/{name}")
     public TestWebServiceBean testWebServiceBean(@PathVariable String name){
         return new TestWebServiceBean(String.format("Test message from Java Back End %s", name));
-
     }
 }
