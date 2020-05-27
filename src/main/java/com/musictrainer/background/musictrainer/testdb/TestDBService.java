@@ -19,7 +19,12 @@ public class TestDBService {
 
         @GetMapping("/users/{username}/userinfo")
         public List<TestDBData> getUserInfo(@PathVariable String username){
-                System.out.println("getUserInfo: " + testDBController.getTestDBData());
-            return testDBController.getTestDBData();
+                System.out.println("getUserInfo: " + testDBController.getAllTestDBData());
+                return testDBController.getAllTestDBData();
+        }
+        @GetMapping("/users/{username}/userinfo/{id}")
+        public TestDBData deleteUserInfo(@PathVariable String username, long id){
+                System.out.println("getUserInfo: " + testDBController.getAllTestDBData());
+                return testDBController.deleteUserTestDBData(id);
         }
 }

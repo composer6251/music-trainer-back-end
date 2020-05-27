@@ -8,11 +8,21 @@ This class is a DB simulation until actual instance is stood up
 @Data
 public class TestDBData {
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    private long id;
     private String username;
     private String password;
     private int currentLevel;
 
-    public TestDBData(String username, String password, int currentLevel) {
+    public TestDBData(long id, String username, String password, int currentLevel) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.currentLevel = currentLevel;
