@@ -21,8 +21,8 @@ public class TestWebServiceController {
         return new TestWebServiceBean("Test message from Java Back End Bean");
     }
 
-//    @GetMapping("/messagingServiceBean/path-variable/{name}")
-//    public TestWebServiceBean testWebServiceBean(@PathVariable String name){
-//        return new TestWebServiceBean(String.format("Test message from Java Back End %s", name));
-//    }
+    @GetMapping("/messagingServiceBean/path-variable/{name}")
+    public TestWebServiceBean testWebServiceBean(@PathVariable String name){
+        return new TestWebServiceBean(String.format("Test message from Java Back End %s", name));
+    }
 }
