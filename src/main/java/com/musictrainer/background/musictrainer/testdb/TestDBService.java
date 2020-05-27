@@ -1,10 +1,8 @@
 package com.musictrainer.background.musictrainer.testdb;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,9 +20,20 @@ public class TestDBService {
                 System.out.println("getUserInfo: " + testDBController.getAllTestDBData());
                 return testDBController.getAllTestDBData();
         }
-        @GetMapping("/users/{username}/userinfo/{id}")
-        public TestDBData deleteUserInfo(@PathVariable String username, long id){
-                System.out.println("getUserInfo: " + testDBController.getAllTestDBData());
-                return testDBController.deleteUserTestDBData(id);
+
+        @DeleteMapping("/users/{username}/userinfo/{id}")
+        public ResponseEntity<Void> deleteUserInfo(@PathVariable String username, @PathVariable long id){
+                System.out.println("Delete mapping");
+
+                TestDBData testDBData = testDBController.deleteUserTestDBData(id);
+                if(testDBData != null){
+                        return  ResponseEntity.noContent().build();
+                }
+                return ResponseEntity.notFound().build();
         }
+//        @DeleteMapping("/users/{username}/userinfo/{id}")
+//        public TestDBData deleteUserInfo(@PathVariable String username, @PathVariable long id){
+//                System.out.println("getUserInfo: " + testDBController.getAllTestDBData());
+//                return testDBController.deleteUserTestDBData(id);
+//        }
 }

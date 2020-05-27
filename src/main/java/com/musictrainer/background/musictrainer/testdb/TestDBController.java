@@ -37,15 +37,18 @@ public class TestDBController{
         return testDBData;
     }
     public TestDBData deleteUserTestDBData(long id){
+        System.out.println("id: " + id);
         TestDBData userToDelete = findUserTestDBData(id);
 
         if(userToDelete == null){
             return null;
         }
-        if(testDBData.remove(id)){
+        else{
+            System.out.println("In Else");
+            testDBData.remove(userToDelete);
             return userToDelete;
         }
-        return null;
+
     }
 
 }
