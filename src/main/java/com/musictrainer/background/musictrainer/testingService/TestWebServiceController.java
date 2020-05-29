@@ -1,4 +1,4 @@
-package com.musictrainer.background.musictrainer;
+package com.musictrainer.background.musictrainer.testingService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -17,13 +17,12 @@ public class TestDBService {
 
         @GetMapping("/users/{username}/userinfo")
         public List<TestDBData> getUserInfo(@PathVariable String username){
-                System.out.println("getUserInfo: " + testDBController.getAllTestDBData());
+
                 return testDBController.getAllTestDBData();
         }
 
         @DeleteMapping("/users/{username}/userinfo/{id}")
         public ResponseEntity<Void> deleteUserInfo(@PathVariable String username, @PathVariable long id){
-                System.out.println("Delete mapping");
 
                 TestDBData testDBData = testDBController.deleteUserTestDBData(id);
                 if(testDBData != null){

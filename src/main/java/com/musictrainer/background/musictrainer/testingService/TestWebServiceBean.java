@@ -1,4 +1,4 @@
-package com.musictrainer.background.musictrainer;
+package com.musictrainer.background.musictrainer.testingService;
 
 public class TestWebServiceBean {
     private String message;
