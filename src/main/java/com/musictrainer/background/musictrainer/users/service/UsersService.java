@@ -10,7 +10,7 @@ public class UsersService {
 
     public void addUser(String email, String password){
 
-        users.add(email);
+        users.add(0, email);
 
         ///return user;
     }
