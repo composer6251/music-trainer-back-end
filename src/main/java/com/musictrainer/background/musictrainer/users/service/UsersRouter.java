@@ -1,15 +1,23 @@
 package com.musictrainer.background.musictrainer.users.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 /*******
  * this class routes user related http requests coming from front end
+ */
+
+/****
+ * Routing:
+ *
+ *
+ *
+ *
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:4500")
@@ -18,12 +26,40 @@ public class UsersRouter {
     @Autowired
     private UsersService usersService;
 
-    @PutMapping("http://localhost:8080/users/{email}/addUser/{password}")
-    public List<UsersData> addUserToDb(@PathVariable String email, @PathVariable String password){
+    @PostMapping("/users/{email}/addUser/{user}")
+    public ResponseEntity<Void> addUserToDb(@PathVariable String email, @RequestBody UsersData user){
 
-        return usersService.addUser(email, password);
+        UsersData userToSave = usersService.saveUser(user);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{user}").buildAndExpand(userToSave.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
 
     }
 
+    @GetMapping("/users")
+    public List<UsersData> getAllUsers(){
+
+        return usersService.getAllUsers();
+    }
+
+    @GetMapping("/users/{id}")
+    public UsersData getUser(@PathVariable int id){
+
+        return usersService.findUserById(id);
+    }
+
+    //Delete user
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable int id){
+
+        UsersData userToDelete = usersService.deleteUser(id);
+
+        if(userToDelete == null){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 
 }
