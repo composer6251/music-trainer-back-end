@@ -26,8 +26,8 @@ public class UsersRouter {
     @Autowired
     private UsersService usersService;
 
-    @PostMapping("/users/{email}/addUser/{user}")
-    public ResponseEntity<Void> addUserToDb(@PathVariable String email, @RequestBody UsersData user){
+    @PostMapping("/users/addUser")
+    public ResponseEntity<Void> addUserToDb(@RequestBody UsersData user){
 
         UsersData userToSave = usersService.saveUser(user);
 

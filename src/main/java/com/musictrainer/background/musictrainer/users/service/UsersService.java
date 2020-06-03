@@ -37,9 +37,13 @@ public class UsersService {
     }
 
     public UsersData saveUser(UsersData user){
-
-        users.add(user);
-
+        System.out.println("userId of new User: " + user.getId());
+        if(user.getId() == -1 || user.getId() == 0){
+            user.setId(++idCounter);
+            user.setCurrentLevel(1);
+            users.add(user);
+        }
+        System.out.println("User to add: " + user);
         return user;
     }
 
