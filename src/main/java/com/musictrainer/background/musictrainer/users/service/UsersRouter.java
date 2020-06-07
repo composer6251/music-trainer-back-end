@@ -20,7 +20,7 @@ import java.util.List;
  *
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4500")
+@CrossOrigin(origins = "http://localhost:4500", allowCredentials = "true", allowedHeaders = "*")
 public class UsersRouter {
 
     @Autowired
