@@ -1,11 +1,12 @@
 package com.musictrainer.background.musictrainer.users.service;
 
 
-
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 @Service
 public class UsersService {
@@ -14,7 +15,9 @@ public class UsersService {
     private static int idCounter = 0;
 
     static {
-        users.add(new UsersData(++idCounter, 7, "David Test Account", "dfennell31@gmail.com"));
+        users.add(new UsersData(++idCounter, "David", "dfennell31@gmail.com", 7, "test"));
+        users.add(new UsersData(++idCounter, "Missy", "udontno32@aol.com", 8, "test"));
+
     }
 
     public UsersData findUserById(int id){
