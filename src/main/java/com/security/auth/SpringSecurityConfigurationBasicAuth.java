@@ -1,4 +1,4 @@
-package com.musictrainer.background.musictrainer.basic.auth;
+package com.security.auth;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 /******
  * This Class is used to control security for requests coming from front end
@@ -20,8 +19,8 @@ public class SpringSecurityConfigurationBasicAuth extends WebSecurityConfigurerA
 
         ((HttpSecurity)((HttpSecurity)((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)
                 http
-                        //.cors()
-                        //.and()
+                        .cors()
+                        .and()
                         .csrf().disable()
                         .authorizeRequests()
                             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -35,3 +34,4 @@ public class SpringSecurityConfigurationBasicAuth extends WebSecurityConfigurerA
                             .httpBasic();
     }
 }
+
