@@ -1,7 +1,7 @@
-package com.musictrainer.background.musictrainer.jwt.resource;
-
-public class AuthenticationException extends RuntimeException {
-    public AuthenticationException(String message, Throwable cause) {
-        super(message, cause);
-    }
-}
+//package com.musictrainer.background.musictrainer.jwt.resource;
+//
+//public class AuthenticationException extends RuntimeException {
+//    public AuthenticationException(String message, Throwable cause) {
+//        super(message, cause);
+//    }
+//}
