@@ -26,6 +26,9 @@ public class UsersJpaRouter {
     @Autowired
     private UsersService usersService;
 
+    @Autowired
+    private UsersJpaRepository usersJpaRepository;
+
     @PostMapping("jpa/users/addUser")
     public ResponseEntity<Void> addUserToDb(@RequestBody UsersData user){
 
@@ -34,7 +37,6 @@ public class UsersJpaRouter {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{user}").buildAndExpand(userToSave.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
-
     }
 
     @GetMapping("jpa/users")
@@ -43,10 +45,18 @@ public class UsersJpaRouter {
         return usersService.getAllUsers();
     }
 
+    @GetMapping("jpa/users/{username}")
+    public List<UsersData> getAllUserData(@PathVariable String name){
+
+        return usersJpaRepository.findByName(name);
+        //return usersService.getAllUsers();
+    }
+
     @GetMapping("jpa/users/{id}")
     public UsersData getUser(@PathVariable int id){
 
-        return usersService.findUserById(id);
+        return usersJpaRepository.findById(id).get();
+        //return usersService.findUserById(id);
     }
 
     //Delete user
