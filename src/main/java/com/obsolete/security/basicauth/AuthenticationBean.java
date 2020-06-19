@@ -1,4 +1,4 @@
-package com.musictrainer.security.basicauth;
+package com.obsolete.security.basicauth;
 
 public class AuthenticationBean {
 

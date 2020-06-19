@@ -1,5 +1,6 @@
 package com.musictrainer.background.musictrainer.jwt;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,10 +19,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private JwtUnAuthorizedResponseAuthenticationEntryPoint jwtUnAuthorizedResponseAuthenticationEntryPoint;
@@ -36,10 +42,10 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     private String authenticationPath;
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder basicauth) throws Exception {
-        basicauth
-            .userDetailsService(jwtInMemoryUserDetailsService)
-            .passwordEncoder(passwordEncoderBean());
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth.userDetailsService(jwtInMemoryUserDetailsService).passwordEncoder(passwordEncoderBean());
+
     }
 
     @Bean
@@ -55,39 +61,41 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-            .csrf().disable()
-            .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests()
-            .anyRequest().authenticated();
 
-       httpSecurity
-            .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        logger.warn("JWTWebSecurityConfig.configure");
 
-        httpSecurity
-            .headers()
-            .frameOptions().sameOrigin()  //H2 Console Needs this setting
-            .cacheControl(); //disable caching
+        httpSecurity.csrf().disable().exceptionHandling()
+                .authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests().anyRequest()
+
+                .authenticated();
+
+
+        httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+
+        httpSecurity.headers().frameOptions().sameOrigin() // H2 Console Needs this setting
+                .cacheControl(); // disable caching
     }
 
     @Override
     public void configure(WebSecurity webSecurity) throws Exception {
-        webSecurity
-            .ignoring()
-            .antMatchers(
-                HttpMethod.POST,
-                authenticationPath
-            )
-            .antMatchers(HttpMethod.OPTIONS, "/**")
-            .and()
-            .ignoring()
-            .antMatchers(
-                HttpMethod.GET,
-                "/" //Other Stuff You want to Ignore
-            )
-            .and()
-            .ignoring()
-            .antMatchers("/h2-console/**/**");//Should not be in Production!
+        webSecurity.ignoring().antMatchers(HttpMethod.POST, authenticationPath)
+
+
+
+
+
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+
+                .and().ignoring()
+
+
+                .antMatchers(HttpMethod.GET, "/" // Other Stuff You want to Ignore
+
+
+                ).and().ignoring()
+                .antMatchers("/h2-console/**/**");// Should not be done in Production!
     }
 }

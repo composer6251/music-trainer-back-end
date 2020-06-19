@@ -38,9 +38,10 @@ public class JwtTokenAuthorizationOncePerRequestFilter extends OncePerRequestFil
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        logger.debug("Authentication Request For '{}'", request.getRequestURL());
+        logger.warn("Authentication Request For '{}'", request.getRequestURL());
 
         final String requestTokenHeader = request.getHeader(this.tokenHeader);
+
 
         String username = null;
         String jwtToken = null;
@@ -54,6 +55,8 @@ public class JwtTokenAuthorizationOncePerRequestFilter extends OncePerRequestFil
                 logger.warn("JWT_TOKEN_EXPIRED", e);
             }
         } else {
+            logger.warn("Request: " + requestTokenHeader + request);
+            logger.warn("requestTokenHeader : " + requestTokenHeader);
             logger.warn("JWT_TOKEN_DOES_NOT_START_WITH_BEARER_STRING");
         }
 

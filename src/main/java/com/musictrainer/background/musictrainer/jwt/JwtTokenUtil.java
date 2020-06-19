@@ -1,22 +1,28 @@
 package com.musictrainer.background.musictrainer.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Clock;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.DefaultClock;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Clock;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.DefaultClock;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class JwtTokenUtil implements Serializable {
+
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   static final String CLAIM_KEY_USERNAME = "sub";
   static final String CLAIM_KEY_CREATED = "iat";
@@ -61,6 +67,7 @@ public class JwtTokenUtil implements Serializable {
   }
 
   public String generateToken(UserDetails userDetails) {
+    logger.warn("JwtTokenUtil.generateToken");
     Map<String, Object> claims = new HashMap<>();
     return doGenerateToken(claims, userDetails.getUsername());
   }

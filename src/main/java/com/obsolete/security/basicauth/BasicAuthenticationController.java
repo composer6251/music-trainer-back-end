@@ -1,4 +1,4 @@
-package com.musictrainer.security.basicauth;
+package com.obsolete.security.basicauth;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

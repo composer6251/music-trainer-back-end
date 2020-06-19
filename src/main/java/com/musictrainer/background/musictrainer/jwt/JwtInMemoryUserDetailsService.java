@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public class JwtInMemoryUserDetailsService implements UserDetailsService {
+
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   static List<JwtUserDetails> inMemoryUserList = new ArrayList<>();
 
@@ -21,6 +27,8 @@ public class JwtInMemoryUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+    logger.warn("JwtInMemoryUserDetailsService.loadUserByUsername : " + username);
     Optional<JwtUserDetails> findFirst = inMemoryUserList.stream()
         .filter(user -> user.getUsername().equals(username)).findFirst();
 
