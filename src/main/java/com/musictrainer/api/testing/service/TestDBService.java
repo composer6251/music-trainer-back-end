@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TestDBController{
+public class TestDBService {
 
     //Incrementer for id
     private static long idCounter = 0;

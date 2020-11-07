@@ -1,7 +1,9 @@
 package com.musictrainer.api.users.controller;
 
+import com.musictrainer.api.client.TestClient;
 import com.musictrainer.api.users.data.UsersData;
 import com.musictrainer.api.users.service.UsersService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +16,13 @@ import java.util.List;
  * this class routes user related http requests coming from front end
  */
 
+@Slf4j
 @RestController
 @CrossOrigin(origins = "http://localhost:4500", allowCredentials = "true", allowedHeaders = "*")
 public class UsersController {
+
+    @Autowired
+    private TestClient client;
 
     @Autowired
     private UsersService usersService;
@@ -55,6 +61,18 @@ public class UsersController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    //Test FeignClient
+    @GetMapping("/test-feign-client")
+    public String testFeignClient(){
+        log.info("/test-feign");
+        return client.feignTest();
+    }
+
+    @GetMapping("/test")
+    public String test(){
+        return "reached";
     }
 
 }

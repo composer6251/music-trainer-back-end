@@ -1,6 +1,6 @@
 package com.musictrainer.api.testing.controller;
 
-import com.musictrainer.api.testing.service.TestDBController;
+import com.musictrainer.api.testing.service.TestDBService;
 import com.musictrainer.api.testing.entity.TestDBData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class TestController {
 
         @Autowired
-        private TestDBController testDBController;
+        private TestDBService testDBController;
 
         @GetMapping("/users/{username}/userinfo")
         public List<TestDBData> getUserInfo(@PathVariable String username){
