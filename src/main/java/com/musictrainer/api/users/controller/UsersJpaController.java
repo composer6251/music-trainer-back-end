@@ -1,6 +1,6 @@
 package com.musictrainer.api.users.controller;
 
-import com.musictrainer.api.users.data.UsersData;
+import com.musictrainer.api.users.data.UserEntity;
 import com.musictrainer.api.users.repo.UsersJpaRepository;
 import com.musictrainer.api.users.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,47 +25,47 @@ public class UsersJpaController {
     @Autowired
     private UsersJpaRepository usersJpaRepository;
 
-    @PostMapping("jpa/users/addUser")
-    public ResponseEntity<Void> addUserToDb(@RequestBody UsersData user){
-
-        UsersData userToSave = usersService.saveUser(user);
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{user}").buildAndExpand(userToSave.getId()).toUri();
-
-        return ResponseEntity.created(uri).build();
-    }
-
-    @GetMapping("jpa/users")
-    public List<UsersData> getAllUsers(){
-
-        return usersService.getAllUsers();
-    }
+//    @PostMapping("jpa/users/addUser")
+//    public ResponseEntity<Void> addUserToDb(@RequestBody UserEntity user){
+//
+//        UserEntity userToSave = usersService.saveUser(user);
+//
+//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{user}").buildAndExpand(userToSave.getId()).toUri();
+//
+//        return ResponseEntity.created(uri).build();
+//    }
+//
+//    @GetMapping("jpa/users")
+//    public List<UserEntity> getAllUsers(){
+//
+//        return usersService.getAllUsers();
+//    }
 
     @GetMapping("jpa/users/{username}")
-    public List<UsersData> getAllUserData(@PathVariable String name){
+    public List<UserEntity> getAllUserData(@PathVariable String name){
 
         return usersJpaRepository.findByName(name);
         //return usersService.getAllUsers();
     }
 
     @GetMapping("jpa/users/{id}")
-    public UsersData getUser(@PathVariable int id){
+    public UserEntity getUser(@PathVariable int id){
 
         return usersJpaRepository.findById(id).orElse(null);
         //return usersService.findUserById(id);
     }
 
     //Delete user
-    @DeleteMapping("jpa/users/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable int id){
-
-        UsersData userToDelete = usersService.deleteUser(id);
-
-        if(userToDelete == null){
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.notFound().build();
-    }
+//    @DeleteMapping("jpa/users/{id}")
+//    public ResponseEntity<Void> deleteUser(@PathVariable int id){
+//
+//        UserEntity userToDelete = usersService.deleteUser(id);
+//
+//        if(userToDelete == null){
+//            return ResponseEntity.noContent().build();
+//        }
+//
+//        return ResponseEntity.notFound().build();
+//    }
 
 }

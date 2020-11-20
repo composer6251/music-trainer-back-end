@@ -1,18 +1,18 @@
 package com.musictrainer.api.users.repo;
 
+import com.musictrainer.api.users.data.TestEntity;
 import com.musictrainer.api.users.data.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UsersJpaRepository extends JpaRepository<UserEntity, Integer> {
+public interface TestJpaRepository extends JpaRepository<TestEntity, Integer> {
 
-    List<UserEntity> findByName(String name);
+   // List<TestEntity> findByName(String name);
 
-    List<UserEntity> findById(Long id);
+   // List<TestEntity> findById(Integer id);
 
 //    @Query("select testId from users.test")
 //    List<UserEntity> getAllUsers();
