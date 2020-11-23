@@ -47,11 +47,11 @@ public class UsersController {
 //        return usersService.getAllUsers();
 //    }
 //
-//    @GetMapping("/users/{id}")
-//    public UserEntity getUser(@PathVariable int id){
-//
-//        return usersService.findUserById(id);
-//    }
+      @GetMapping("/users/{id}")
+      public Optional<UserEntity> getUser(@PathVariable int id){
+
+          return usersService.findUserById(id);
+      }
 //
 //    //Delete user
 //    @DeleteMapping("/users/{id}")
@@ -73,9 +73,9 @@ public class UsersController {
         return client.feignTest();
     }
 
-    @GetMapping("/test-endpoint")
-    public Optional<TestEntity> test(){
-        return usersService.testFetchFromDB();
-    }
+//    @GetMapping("/test-endpoint")
+//    public Optional<TestEntity> test(){
+//        return usersService.testFetchFromDB();
+//    }
 
 }
