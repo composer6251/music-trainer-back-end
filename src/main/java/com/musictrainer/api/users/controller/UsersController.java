@@ -23,6 +23,8 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4500", allowCredentials = "true", allowedHeaders = "*")
 public class UsersController {
 
+    //todo: set profile for yml file
+
     @Autowired
     private TestClient client;
 
@@ -47,11 +49,21 @@ public class UsersController {
 //        return usersService.getAllUsers();
 //    }
 //
-//    @GetMapping("/users/{id}")
-//    public UserEntity getUser(@PathVariable int id){
-//
-//        return usersService.findUserById(id);
-//    }
+    @GetMapping("/users/{id}")
+    public Optional<UserEntity> getUser(@PathVariable int id){
+
+        return usersService.findUserById(id);
+    }
+    @GetMapping("/users/{id}")
+    public Optional<UserEntity> authenticateUser(@PathVariable int id){
+
+        Optional<UserEntity> authenticatedUser = usersService.findUserById(id);
+        if(authenticatedUser.isPresent()){
+            return Optional.empty();
+        }
+        return authenticatedUser;
+
+    }
 //
 //    //Delete user
 //    @DeleteMapping("/users/{id}")
@@ -66,16 +78,11 @@ public class UsersController {
 //        return ResponseEntity.notFound().build();
 //    }
 
-    //Test FeignClient
-    @GetMapping("/test-feign-client")
-    public String testFeignClient(){
-        log.info("/test-feign");
-        return client.feignTest();
-    }
-
-    @GetMapping("/test-endpoint")
-    public Optional<TestEntity> test(){
-        return usersService.testFetchFromDB();
-    }
+//    //Test FeignClient
+//    @GetMapping("/test-feign-client")
+//    public String testFeignClient(){
+//        log.info("/test-feign");
+//        return client.feignTest();
+//    }
 
 }

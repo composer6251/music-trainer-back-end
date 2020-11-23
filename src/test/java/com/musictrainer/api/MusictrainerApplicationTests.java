@@ -1,4 +1,4 @@
-package com.musictrainer.background.musictrainer;
+package com.musictrainer.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
