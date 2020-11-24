@@ -5,10 +5,7 @@ import com.musictrainer.api.users.data.UserEntity;
 import com.musictrainer.api.users.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -33,7 +30,7 @@ public class UsersController {
     //todo: existing user login
     //todo: change pathvariables to requestbodies
     //todo: add validator for requests
-    @GetMapping("/users/registerNewUser/{email}/{password}/{username}")
+    @PostMapping("/users/registerNewUser/{email}/{password}/{username}")
     public Optional<UserEntity> registerNewUser(@PathVariable String email, @PathVariable String password, @PathVariable String username){
 
         Optional<UserEntity> userToSave = usersService.registerNewUser(email, password, username);
@@ -41,7 +38,7 @@ public class UsersController {
         return userToSave;
     }
 
-    @GetMapping("/users/{username}/{password}")
+    @GetMapping("/users/validate-user/{username}/{password}")
     public Optional<UserEntity> validateUserLogin(@PathVariable String username, @PathVariable String password){
 
         return usersService.findUserByUsername(username, password);
