@@ -1,15 +1,8 @@
 package com.musictrainer.api.users.data;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -20,12 +13,20 @@ import javax.persistence.Table;
 public class UserEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-
+    @Column(name = "first_name")
     private String name;
+    @NonNull
+    @Column(name = "email")
     private String email;
+    @NonNull
+    @Column(name = "username")
+    private String username;
     private int currentLevel;
+    @NonNull
     private String password;
+
+    private String errorMessage;
 
 }

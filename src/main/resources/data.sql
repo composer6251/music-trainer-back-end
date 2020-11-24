@@ -1,14 +1,9 @@
 
---INSERT INTO user_data(ID, CURRENT_LEVEL, EMAIL, NAME, PASSWORD)
---VALUES(10001, 1, 'DFENNELL31@GMAIL.COM', 'David', 'test');
---
---INSERT INTO user_data(ID, CURRENT_LEVEL, EMAIL, NAME, PASSWORD)
---VALUES(10002, 1, 'DFENNELL31@GMAIL.COM', 'David', 'test');
---
---INSERT INTO user_data(ID, CURRENT_LEVEL, EMAIL, NAME, PASSWORD)
---VALUES(10003, 1, 'DFENNELL31@GMAIL.COM', 'David', 'test');
 insert into users.user_data(id, current_level, email, name, password)
 values(2,1, 'dfennell31@gmail.com', 'David Fennell', 'password');
+
+insert into users.user_data(id, current_level, email, name, password)
+values(3,1, 'dfennell31@gmail.com', 'david', 'test');
 
 INSERT INTO users.user_data(id, current_level)
 values(2,2);

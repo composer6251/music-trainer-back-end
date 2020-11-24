@@ -1,17 +1,15 @@
 package com.musictrainer.api.users.controller;
 
 import com.musictrainer.api.client.TestClient;
-import com.musictrainer.api.users.data.TestEntity;
 import com.musictrainer.api.users.data.UserEntity;
 import com.musictrainer.api.users.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 /*******
@@ -28,54 +26,46 @@ public class UsersController {
 
     @Autowired
     private UsersService usersService;
+//todo: change dev profile
+//todo: change mySql creds in properties
+    //todo: constants for base URL
+    //todo: add basic auth/user validation
+    //todo: existing user login
+    //todo: change pathvariables to requestbodies
+    //todo: add validator for requests
+    @GetMapping("/users/registerNewUser/{email}/{password}/{username}")
+    public Optional<UserEntity> registerNewUser(@PathVariable String email, @PathVariable String password, @PathVariable String username){
 
-//    @PostMapping("/users/addUser")
-//    public ResponseEntity<Void> addUserToDb(@RequestBody UserEntity user){
-//
-//        UserEntity userToSave = usersService.saveUser(user);
-//
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{user}").buildAndExpand(userToSave.getId()).toUri();
-//
-//        return ResponseEntity.created(uri).build();
-//
-//    }
-//
-//    @GetMapping("/users")
-//    public List<UserEntity> getAllUsers(){
-//        //todo: change mySql creds in properties
-//
-//        return usersService.getAllUsers();
-//    }
-//
-      @GetMapping("/users/{id}")
-      public Optional<UserEntity> getUser(@PathVariable int id){
+        Optional<UserEntity> userToSave = usersService.registerNewUser(email, password, username);
 
-          return usersService.findUserById(id);
-      }
-//
-//    //Delete user
-//    @DeleteMapping("/users/{id}")
-//    public ResponseEntity<Void> deleteUser(@PathVariable int id){
-//
-//        UserEntity userToDelete = usersService.deleteUser(id);
-//
-//        if(userToDelete == null){
-//            return ResponseEntity.noContent().build();
-//        }
-//
-//        return ResponseEntity.notFound().build();
-//    }
-
-    //Test FeignClient
-    @GetMapping("/test-feign-client")
-    public String testFeignClient(){
-        log.info("/test-feign");
-        return client.feignTest();
+        return userToSave;
     }
 
-//    @GetMapping("/test-endpoint")
-//    public Optional<TestEntity> test(){
-//        return usersService.testFetchFromDB();
-//    }
+    @GetMapping("/users/{username}/{password}")
+    public Optional<UserEntity> validateUserLogin(@PathVariable String username, @PathVariable String password){
 
+        return usersService.findUserByUsername(username, password);
+    }
+    @GetMapping("/users/{id}")
+    public Optional<UserEntity> getUser(@PathVariable int id){
+
+        return usersService.findUserById(id);
+    }
+
+    @GetMapping("/users/authenticate/{id}")
+    public Optional<UserEntity> authenticateUser(@PathVariable int id){
+
+        Optional<UserEntity> authenticatedUser = usersService.findUserById(id);
+        if(!authenticatedUser.isPresent()){
+            return Optional.empty();
+        }
+        return authenticatedUser;
+    }
+
+    //Leaving in case another service needs to be set up as a client
+//    @GetMapping("/test-feign-client")
+//    public String testFeignClient(){
+//        log.info("/test-feign");
+//        return client.feignTest();
+//    }
 }

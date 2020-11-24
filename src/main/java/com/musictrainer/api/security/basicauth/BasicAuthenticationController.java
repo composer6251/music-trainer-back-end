@@ -12,7 +12,6 @@ public class BasicAuthenticationController {
 
     @GetMapping("/basicauth")
     public AuthenticationBean helloWorldBean() {
-        log.info("in Basic Auth Controller");
         return new AuthenticationBean("You are authenticated");
     }
 }
